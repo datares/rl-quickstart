@@ -1,25 +1,29 @@
 import gym
 from gym.wrappers import Monitor
-from stable_baselines3 import A2C
+from stable_baselines3 import PPO
 from stable_baselines3.common.logger import configure
+from datetime import datetime
+
+now = datetime.now()
+dt_string = now.strftime("%y-%m-%d %H:%M:%S")
 
 def wrap_env(env):
     env = Monitor(env, 'video/', force=True)
     return env
 
-log_path = "logs/"
+log_path = f"logs/{dt_string}"
 # # set up logger
 logger = configure(log_path, ["stdout", "tensorboard"])
 
-env = gym.make('CartPole-v1') # Breakout-v0
+env = gym.make('CartPole-v1') # or Breakout-v0 for Atari
 env = wrap_env(env)
 
-model = A2C('MlpPolicy', env, verbose=1)
+model = PPO('MlpPolicy', env, verbose=1)
 model.set_logger(logger)
-model.learn(total_timesteps=10000, tb_log_name="first run")
+model.learn(total_timesteps=100000)
 
 obs = env.reset()
-for i in range(1000):
+for i in range(10000):
     action, _state = model.predict(obs, deterministic=True)
     obs, reward, done, info = env.step(action)
     env.render()
