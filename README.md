@@ -13,11 +13,11 @@ conda activate rl
 pip install -r requirements.txt
 ```
 
-The finally to train the agents
+Then finally to train the agents
 ```bash
 python main.py
 ```
-
+Training metrics will be printed in `stdout` 
 
 ## Viewing Results
 At the end of training, a window should open to display the trained agent.
@@ -27,4 +27,4 @@ To run tensorboard, run the following in a new terminal window
 tensorboard --logdir=logs
 ```
 
-Videos are also saved to the `video` directory, which has `.mp4`s of the testing results.
+Videos are also saved to the `video` directory, which has `.mp4` videos of the testing results.
