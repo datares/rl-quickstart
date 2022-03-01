@@ -7,7 +7,7 @@ from datetime import datetime
 ENVIRONMENT = "FetchPickAndPlace-v1"
 
 now = datetime.now()
-dt_string = now.strftime("%y-%m-%d %H:%M:%S")
+dt_string = now.strftime("%y-%m-%d--%H:%M:%S")
 
 def wrap_env(env):
     env = Monitor(env, f'video/{ENVIRONMENT}-{dt_string}', force=True)
@@ -35,5 +35,8 @@ for i in range(100000):
         max_reward = reward
     if done:
       obs = env.reset()
+    if reward > max_reward:
+        model.save(f"models/{dt_string}-reward={reward}.pkl")
+        max_reward = reward
 
 env.close()

@@ -8,7 +8,7 @@ git clone https://github.com/datares/rl-quickstart.git && cd rl-quickstart
 To setup the development environment
 
 ```bash
-conda create -n python=3.9 rl
+conda create -n rl python=3.9
 conda activate rl
 pip install -r requirements.txt
 ```
